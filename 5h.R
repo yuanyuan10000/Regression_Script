@@ -1,0 +1,17 @@
+#norm.test<-data.frame(scale(testdata))
+#data1<-as.matrix(norm.data[,1:117])
+#data2<-as.matrix(norm.test[,1:117])
+
+setwd("I:/1caco2_reg")
+
+traindata<-read.csv('./PHD2_data/HDraw_train_random_partition.csv',header=FALSE)    
+testdata<-read.csv('./PHD2_data/HDraw_test_random_partition.csv',header=FALSE)
+library(MASS)
+data1<-as.matrix(traindata)
+data2<-as.matrix(testdata)
+H1<-data1%*%ginv((t(data1)%*%data1))%*%t(data1)
+H2<-data2%*%ginv((t(data1)%*%data1))%*%t(data2)
+h<-3*(ncol(traindata))/nrow(traindata)
+write.csv(H1,"./PHD2_result/h1.csv")
+write.csv(H2,"./PHD2_result/h2.csv")
+print(h)
